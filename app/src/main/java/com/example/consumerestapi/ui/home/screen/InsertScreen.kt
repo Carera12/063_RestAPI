@@ -15,13 +15,14 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.input.KeyboardType
 import com.example.consumerestapi.R
 import com.example.consumerestapi.model.Kontak
+import com.example.consumerestapi.ui.home.viewmodel.InsertUiEvent
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
 @Composable
 fun FormInputSiswa(
-    kontak: Kontak,
+    insertUiEvent: InsertUiEvent,
     modifier: Modifier = Modifier,
-    onValueChange: (Kontak) -> Unit = {},
+    onValueChange: (InsertUiEvent) -> Unit = {},
     enabled: Boolean = true
 ) {
     Column (
@@ -29,24 +30,24 @@ fun FormInputSiswa(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
     ) {
         OutlinedTextField(
-            value = kontak.nama,
-            onValueChange = {onValueChange(kontak.copy(nama = it))},
+            value = insertUiEvent.nama,
+            onValueChange = {onValueChange(insertUiEvent.copy(nama = it))},
             label = { Text("Nama")},
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true
         )
         OutlinedTextField(
-            value = kontak.alamat,
-            onValueChange = {onValueChange(kontak.copy(alamat = it))},
+            value = insertUiEvent.email,
+            onValueChange = {onValueChange(insertUiEvent.copy(email = it))},
             label = { Text("Alamat")},
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true
         )
         OutlinedTextField(
-            value = kontak.nohp,
-            onValueChange = {onValueChange(kontak.copy(nohp = it))},
+            value = insertUiEvent.nohp,
+            onValueChange = {onValueChange(insertUiEvent.copy(nohp = it))},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             label = { Text("Telepon")},
             modifier = Modifier.fillMaxWidth(),
