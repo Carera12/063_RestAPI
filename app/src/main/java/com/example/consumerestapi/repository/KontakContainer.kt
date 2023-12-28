@@ -6,14 +6,15 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
 
-interface AppContainer{
+interface AppContainer {
     val kontakRepository: KontakRepository
 }
+
 class KontakContainer : AppContainer {
-    private val baseUrl = "http://localhost:8080/kontak"
-    private val json = Json {ignoreUnknownKeys = true}
+    private val baseUrl = "http://192.168.1.20:8080"
+    private val json = Json { ignoreUnknownKeys = true }
     private val retrofit: Retrofit = Retrofit.Builder()
-        .addConverterFactory(json.asConverterFactory("applicaation/json".toMediaType()))
+        .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
         .baseUrl(baseUrl)
         .build()
 

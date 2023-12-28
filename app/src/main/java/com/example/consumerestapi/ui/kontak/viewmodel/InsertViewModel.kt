@@ -10,6 +10,7 @@ import com.example.consumerestapi.repository.KontakRepository
 import kotlinx.coroutines.launch
 
 class InsertViewModel(private val kontakRepository: KontakRepository) : ViewModel() {
+
     var insertKontakState by mutableStateOf(InsertUiState())
         private set
 
@@ -21,39 +22,38 @@ class InsertViewModel(private val kontakRepository: KontakRepository) : ViewMode
         viewModelScope.launch {
             try {
                 kontakRepository.insertKontak(insertKontakState.insertUiEvent.toKontak())
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
-
         }
     }
 }
 
-data class InsertUiEvent(
+data class InsertUiState(
+    val insertUiEvent: InsertUiEvent = InsertUiEvent(),
+)
+
+data class  InsertUiEvent(
     val id: Int = 0,
     val nama: String = "",
     val email: String = "",
-    val nohp: String = ""
+    val nohp: String = "",
 )
 
-fun InsertUiEvent.toKontak() : Kontak = Kontak(
+fun InsertUiEvent.toKontak(): Kontak = Kontak(
     id = id,
     nama = nama,
-    alamat = email,
+    email = email,
     nohp = nohp,
-)
-
-data class InsertUiState(
-    val insertUiEvent: InsertUiEvent = InsertUiEvent()
 )
 
 fun Kontak.toInsertUiEvent(): InsertUiEvent = InsertUiEvent(
     id = id,
     nama = nama,
-    email = alamat,
+    email = email,
     nohp = nohp,
 )
 
 fun Kontak.toUiStateKontak(): InsertUiState = InsertUiState(
-    insertUiEvent = toInsertUiEvent()
+    insertUiEvent = toInsertUiEvent(),
 )
